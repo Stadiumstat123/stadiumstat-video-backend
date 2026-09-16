@@ -1,0 +1,17 @@
+services:
+  video:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      VIDEO_SERVICE_SECRET: ${VIDEO_SERVICE_SECRET:?Set a random secret of at least 32 characters}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:?Set the exact StadiumStat HTTPS origin}
+      DEVICE: cpu
+    volumes:
+      - video_data:/data
+    restart: unless-stopped
+    init: true
+    mem_limit: 8g
+    cpus: 4
+volumes:
+  video_data:
